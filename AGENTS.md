@@ -28,7 +28,7 @@ Research claims carry a source (URL, publisher, date) and a confidence (H/M/L). 
 
 ## Rules
 
-- **No real company or patient.** No real company's name, branding or content, and no real patient data, anywhere in the repository.
+- **No real company or patient.** No real company's name, branding or content, and no real patient data, anywhere in the repository, except that research documents may name real companies as cited sources (decided 2026-11-11).
 - **A clinician approves every reply.** Nothing reaches a patient without approval, and the approval binds the exact text.
 - **Model output is untrusted.** Parsed into strict types and checked by rules before a person sees it.
 - **API key only.** The Claude API through the owner's key (`OWNER_ANTHROPIC_API_KEY`), never a Claude subscription; no data to free model tiers that train on inputs.

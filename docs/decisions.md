@@ -10,3 +10,4 @@ Approved by the owner, newest last.
 ## 2026-11-11
 
 - **Repository:** created by the owner; work starts once Care Reminders is finished.
+- **Wording of the real-company rule:** research documents may name real companies as cited sources.
