@@ -1,17 +1,15 @@
 import { describe, expect, it } from "vitest"
 
 import { CLINIC_PHONE } from "../src/clinic.ts"
-import { FhirServer } from "../src/fhir/client.ts"
 import { REPLY_ID } from "../src/fhir/build.ts"
 import { takeIn } from "../src/intake.ts"
 import { approve, contentHash, edit, latestDraft, ReviewError } from "../src/review.ts"
 import { writeReplies } from "../src/sending.ts"
 import { api, call, logIn } from "./support/api.ts"
 import { freshDb } from "./support/db.ts"
+import { loadedFhir } from "./support/fhir.ts"
 import { clock, FakeModel, messageAndRecord } from "./support/fixtures.ts"
 import { addStaff } from "./support/staff.ts"
-
-const FHIR_URL = process.env["FHIR_URL"] ?? "http://127.0.0.1:8090/fhir"
 
 interface PortalRow {
   subject: string
@@ -107,7 +105,7 @@ describe("f sending", () => {
     const draft = await latestDraft(db, taken.id)
     if (!draft) throw new Error("no draft")
     const { replyId } = await approve(deps, clinician, draft.id, contentHash(draft.text))
-    const fhir = new FhirServer(FHIR_URL)
+    const fhir = loadedFhir()
 
     expect(await writeReplies(deps, fhir)).toBe(1)
     // A crash before it was marked written: writing again makes no second one.

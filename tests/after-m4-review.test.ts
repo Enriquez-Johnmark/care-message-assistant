@@ -7,10 +7,9 @@ import { takeIn } from "../src/intake.ts"
 import { edit, latestDraft, ReviewError } from "../src/review.ts"
 import { api, call, logIn } from "./support/api.ts"
 import { freshDb } from "./support/db.ts"
+import { loadedFhir } from "./support/fhir.ts"
 import { clock, FakeModel, messageAndRecord, GOOD_REPLY } from "./support/fixtures.ts"
 import { addStaff } from "./support/staff.ts"
-
-const FHIR_URL = process.env["FHIR_URL"] ?? "http://127.0.0.1:8090/fhir"
 
 describe("after the M4–M6 code review", () => {
   it("e1 the front desk can't rewrite the admin template into any text of its own", async () => {
@@ -37,7 +36,7 @@ describe("after the M4–M6 code review", () => {
   it("c1 two fetches at once take each message in once", async () => {
     const db = await freshDb()
     const model = new FakeModel()
-    const fhir = new FhirServer(FHIR_URL)
+    const fhir = loadedFhir()
 
     await Promise.all([
       fetchAndTakeIn({ db, clock: clock(), model }, fhir),
