@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for telling us about this. I'm sorry you've been feeling lightheaded. I can't say what is causing it. Your clinician will review your worry about your tamsulosin, and please don't change how you take it unless they tell you to. Since this is a new symptom, you can book a visit or call the clinic. If it gets worse, please call the clinic.\"}",
+  "inputTokens": 1215,
+  "outputTokens": 129
+}

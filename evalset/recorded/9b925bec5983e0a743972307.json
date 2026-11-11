@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for your message. I can see why the pills feel confusing. Warfarin is not on the medicine list in your record, so I can't say anything about it here. Your clinician will review your medicines with you and advise you. Please keep taking your medicines as you have been until they do. If you want to talk it over sooner, you can book a visit or call the clinic.\"}",
+  "inputTokens": 1277,
+  "outputTokens": 127
+}

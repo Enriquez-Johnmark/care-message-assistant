@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "sort",
+  "text": "{\"type\":\"admin\",\"urgency\":\"routine\"}",
+  "inputTokens": 562,
+  "outputTokens": 19
+}

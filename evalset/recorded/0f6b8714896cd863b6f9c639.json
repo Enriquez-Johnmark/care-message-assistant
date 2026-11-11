@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for your message. Your hemoglobin result was 11.2 g/dL. The lab's range is 12 to 15.5, so your result is below that range. I can't say what it means for you or why it is low. Your clinician can talk with you about what this result means for you. If you have new or worse symptoms, you can book a visit or call the clinic.\"}",
+  "inputTokens": 1187,
+  "outputTokens": 126
+}

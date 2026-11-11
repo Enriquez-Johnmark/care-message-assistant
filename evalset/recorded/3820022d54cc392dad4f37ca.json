@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for writing. Your TSH on 2026-10-30 was 6.8 mIU/L. The lab's range is 0.4 to 4. Please do not take extra levothyroxine on your own. Your clinician will advise you about any change to your medicine and can talk with you about what this result means for you. You have a follow-up visit with Dr. Example Lee on 2026-12-10. If you feel worse or have new symptoms, you can book a visit or call the clinic.\"}",
+  "inputTokens": 1105,
+  "outputTokens": 169
+}

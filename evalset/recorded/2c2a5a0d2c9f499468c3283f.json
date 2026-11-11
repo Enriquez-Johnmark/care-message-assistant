@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for writing. Your potassium on 2026-10-28 was 5.3 mmol/L. The lab's range is 3.5 to 5.1, so it is a little above that range. Your clinician can talk with you about what this means for you, including your diet. Please don't change any medicines or foods on your own until you hear from them. You can book a visit or call the clinic if you'd like to talk sooner, or if you feel new or worse symptoms.\"}",
+  "inputTokens": 1396,
+  "outputTokens": 159
+}

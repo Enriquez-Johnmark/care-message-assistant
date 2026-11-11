@@ -9,11 +9,14 @@ import { z } from "zod"
 import { server } from "./api/server.ts"
 import { systemClock, type Clock } from "./clock.ts"
 import { demoMessages, demoPatients } from "./demo.ts"
+import { measure, report } from "./eval.ts"
 import { build, gaps, html, type Results } from "./evidence.ts"
+import { messageResource, patientResources } from "./fhir/build.ts"
+import { read } from "./fhir/reader.ts"
 import { fetchAndTakeIn } from "./fetch.ts"
 import { FhirServer } from "./fhir/client.ts"
 import { MailpitMailer } from "./mail.ts"
-import { ClaudeModel, RecordedModel, type Model } from "./model/client.ts"
+import { ClaudeModel, RecordedModel, RecordingModel, type Model } from "./model/client.ts"
 import { MODEL } from "./model/questions.ts"
 import { connect, migrate } from "./store/db.ts"
 
@@ -22,6 +25,7 @@ const USAGE = `usage: pnpm cli migrate
        pnpm cli load-made-up [--url URL]
        pnpm cli fetch [--url URL] [--recorded]
        pnpm cli serve [--recorded]
+       pnpm cli eval [--record]
        pnpm cli evidence --results FILE --commit SHA [--out FILE]`
 
 const clock = (): Clock => systemClock
@@ -47,6 +51,7 @@ async function main(argv: string[]): Promise<number> {
       name: { type: "string" },
       role: { type: "string" },
       recorded: { type: "boolean" },
+      record: { type: "boolean" },
     },
   })
   switch (command) {
@@ -116,6 +121,25 @@ async function main(argv: string[]): Promise<number> {
         })
       }, tick)
       return await new Promise<number>(() => undefined)
+    }
+    case "eval": {
+      // The labelled messages, read as from the FHIR server.
+      const fromFhir = read([
+        ...demoPatients().flatMap(patientResources),
+        ...demoMessages().map(messageResource),
+      ])
+      const labelled = demoMessages().flatMap((label) => {
+        const message = fromFhir.messages.find((m) => m.key === label.id)
+        const record = fromFhir.records.find((r) => r.person.fhirId === message?.patientFhirId)
+        return message && record ? [{ label, message, record }] : []
+      })
+      const live = values.record === true ? new RecordingModel(new ClaudeModel(MODEL)) : undefined
+      const measured = await measure(live ?? new RecordedModel(MODEL), labelled)
+      if (live) console.log(`asked Claude ${String(live.liveCalls)} time(s); the rest were recorded`)
+      const text = report(measured)
+      writeFileSync("evalset/report.md", text)
+      console.log(text)
+      return 0
     }
     case "evidence": {
       if (!values.results || !values.commit) break

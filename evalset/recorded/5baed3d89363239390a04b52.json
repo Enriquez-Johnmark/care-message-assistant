@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for your message. Your LDL cholesterol on 2026-07-22 was 98 mg/dL. The lab's high limit for that test is 100, so your result is just under it. Your clinician can talk with you about what this means for you and your rosuvastatin. Please keep taking your medicines as you have been until they advise you. If you have any new symptoms, you can book a visit or call the clinic.\"}",
+  "inputTokens": 1265,
+  "outputTokens": 145
+}

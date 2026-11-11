@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for your message. Your fluticasone refill request is with your clinician. Refills of current medicines are usually handled within the clinic's normal process. Since you are on your last few puffs, please let the clinic know if you have any trouble getting it. If your breathing feels worse, you can book a visit or call the clinic.\"}",
+  "inputTokens": 1202,
+  "outputTokens": 118
+}

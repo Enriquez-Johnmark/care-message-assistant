@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for asking. It's smart to check about food and your warfarin. I can't say for sure what is right for you, so your clinician will review your question about salads and spinach and advise you. Please keep taking your warfarin just as it is written in your record until then. You also have an INR check with Nurse Example Park coming up, and you can ask about it there. If you'd like to talk sooner, you can book a visit or call the clinic.\"}",
+  "inputTokens": 1368,
+  "outputTokens": 540
+}

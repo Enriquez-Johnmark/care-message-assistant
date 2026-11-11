@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for sharing this. I'm glad you've been feeling so much better. Please keep taking your fluoxetine the way you do now until you talk with your clinician. Your clinician will advise you about any change to your dose or about stopping. I've passed your question along. If you'd like to talk it through in person, you can book a visit or call the clinic.\"}",
+  "inputTokens": 1159,
+  "outputTokens": 126
+}

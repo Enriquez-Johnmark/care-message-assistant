@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for writing to us. I'm sorry you've had a headache on and off for three days. Since it is new for you, we suggest you book a visit so your clinician can take a look. If it gets worse, please call the clinic. Your clinician can also tell you how often to check your blood pressure, so please ask at that visit or when you call. Your last reading in our record was 132 over 84.\"}",
+  "inputTokens": 1208,
+  "outputTokens": 137
+}

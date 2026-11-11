@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "sort",
+  "text": "{\"type\":\"medication\",\"urgency\":\"soon\"}",
+  "inputTokens": 572,
+  "outputTokens": 19
+}

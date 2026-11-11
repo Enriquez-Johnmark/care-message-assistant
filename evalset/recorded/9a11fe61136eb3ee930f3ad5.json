@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for your message. I can't say whether ibuprofen is okay with your albuterol inhaler and montelukast, because ibuprofen is not in your record. Your clinician will review your question and advise you. Please don't change how you take your current medicines in the meantime. If your cramps are new, getting worse, or hard to manage, you can book a visit or call the clinic.\"}",
+  "inputTokens": 1134,
+  "outputTokens": 135
+}
