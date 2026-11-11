@@ -27,22 +27,26 @@ export class FhirServer {
     this.base = url
   }
 
-  /** Writes the made-up patients and messages, each by its own ID, so loading
-   *  again changes nothing. Refused unless the server is on this computer. */
+  /** Writes the made-up patients and messages in one transaction, each by its
+   *  own ID, so loading again changes nothing. Refused unless the server is on this computer. */
   async loadMadeUp(patients: DemoPatient[], messages: DemoMessage[]): Promise<number> {
     if (!isThisComputer(this.base))
       throw new FhirError("made-up data is only loaded into a server on this computer")
     const resources = [...patients.flatMap(patientResources), ...messages.map(messageResource)]
-    for (const resource of resources) await this.put(resource)
-    return resources.length
-  }
-
-  async put(resource: Resource): Promise<void> {
-    await this.request(`${resource.resourceType}/${resource.id}`, {
-      method: "PUT",
+    // One transaction: all of it is written, or none of it.
+    await this.request("", {
+      method: "POST",
       headers: { "content-type": "application/fhir+json" },
-      body: JSON.stringify(resource),
+      body: JSON.stringify({
+        resourceType: "Bundle",
+        type: "transaction",
+        entry: resources.map((resource) => ({
+          resource,
+          request: { method: "PUT", url: `${resource.resourceType}/${resource.id}` },
+        })),
+      }),
     })
+    return resources.length
   }
 
   /** Creates `resource` only if none with `identifier` (`system|value`) exists:
@@ -95,7 +99,8 @@ export class FhirServer {
   }
 
   private async request(path: string, init: RequestInit): Promise<unknown> {
-    const url = path.startsWith("http") ? path : `${this.base.toString()}/${path}`
+    const base = this.base.href.replace(/\/+$/, "")
+    const url = path.startsWith("http") ? path : path === "" ? `${base}/` : `${base}/${path}`
     let response: Response
     try {
       response = await fetch(url, { ...init, signal: AbortSignal.timeout(TIMEOUT_MS), redirect: "error" })
@@ -104,8 +109,7 @@ export class FhirServer {
         `${this.base.host} didn't answer: ${error instanceof Error ? error.message : String(error)}`,
       )
     }
-    const body = await response.text()
-    if (body.length > MAX_BYTES) throw new FhirError(`an answer over ${MAX_BYTES} bytes`)
+    const body = await limitedText(response)
     if (!response.ok)
       throw new FhirError(`${init.method ?? "GET"} ${path}: ${response.status} ${body.slice(0, 200)}`)
     if (body.trim() === "") return {}
@@ -119,4 +123,24 @@ export class FhirServer {
 
 function isThisComputer(url: URL): boolean {
   return ["127.0.0.1", "localhost", "[::1]"].includes(url.hostname)
+}
+
+/** The body as text, read in pieces and refused as soon as it passes the
+ *  size limit, so a huge answer is never held in memory. */
+async function limitedText(response: Response): Promise<string> {
+  if (!response.body) return ""
+  const reader = response.body.getReader()
+  const chunks: Uint8Array[] = []
+  let bytes = 0
+  for (;;) {
+    const { done, value } = await reader.read()
+    if (done) break
+    bytes += value.byteLength
+    if (bytes > MAX_BYTES) {
+      await reader.cancel()
+      throw new FhirError(`an answer over ${MAX_BYTES} bytes`)
+    }
+    chunks.push(value)
+  }
+  return Buffer.concat(chunks).toString("utf8")
 }
