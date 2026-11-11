@@ -14,7 +14,7 @@
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "cli": "tsx src/cli.ts"
+    "cli": "tsx --env-file-if-exists=.env src/cli.ts"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
