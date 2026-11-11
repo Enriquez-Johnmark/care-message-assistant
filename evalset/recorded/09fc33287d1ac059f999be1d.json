@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for writing. I'm sorry work has been so stressful lately. Whether a medicine is right for you is a decision for your clinician, who can talk with you about it. Please book a visit or call the clinic so you can talk about how you've been feeling. If things get worse, call the clinic.\"}",
+  "inputTokens": 1084,
+  "outputTokens": 109
+}

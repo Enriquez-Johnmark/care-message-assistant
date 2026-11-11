@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for letting us know. Your request for insulin glargine is with your clinician. Refills of current medicines are usually handled within the clinic's normal process. I see you have about five days left, so I've noted that. Your clinician will also look at the pen needles request. If you have any trouble, please call the clinic.\"}",
+  "inputTokens": 1316,
+  "outputTokens": 114
+}

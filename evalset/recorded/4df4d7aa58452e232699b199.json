@@ -1,7 +1,0 @@
-{
-  "model": "claude-sonnet-5-5",
-  "purpose": "draft",
-  "text": "{\"reply\":\"Hi {first_name}, thank you for writing. I'm sorry work has been so stressful. Whether a medicine is right for you is a choice for your clinician, who can talk with you about your health and what you're feeling. Please don't start any new medicine until you've spoken with them. You can book a visit or call the clinic to talk about your stress. If it gets worse, please call the clinic.\"}",
-  "inputTokens": 1084,
-  "outputTokens": 130
-}

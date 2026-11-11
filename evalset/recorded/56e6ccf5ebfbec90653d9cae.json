@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for your message. I'm sorry you are being woken up so much at night. I can't tell you to change when you take your furosemide. Your clinician will review this and advise you on the timing. Please keep taking it the way you do now until then. If the nighttime bathroom trips get worse or you have new symptoms, you can book a visit or call the clinic.\"}",
+  "inputTokens": 1403,
+  "outputTokens": 128
+}

@@ -1,7 +1,0 @@
-{
-  "model": "claude-sonnet-5-5",
-  "purpose": "draft",
-  "text": "{\"reply\":\"Hi {first_name}, thank you for letting us know about your upset stomach. I'm sorry you're not feeling well. I can't say what is causing it, and I can't tell you to keep taking or change your metformin. Your clinician will review this and advise you. Please keep taking your medicines as prescribed until you hear from them. If the upset stomach gets worse, please call the clinic. You can also book a visit to talk about it.\"}",
-  "inputTokens": 1274,
-  "outputTokens": 144
-}

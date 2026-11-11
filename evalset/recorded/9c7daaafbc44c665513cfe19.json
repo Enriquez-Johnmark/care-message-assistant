@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for telling us about this. I can't say what is causing the lightheadedness. Your clinician will review your concern about tamsulosin and talk with you about it. Please don't change how you take any medicine until they advise you. Since this is a symptom that is bothering you, you can book a visit or call the clinic. If it gets worse, please call the clinic right away.\"}",
+  "inputTokens": 1215,
+  "outputTokens": 131
+}

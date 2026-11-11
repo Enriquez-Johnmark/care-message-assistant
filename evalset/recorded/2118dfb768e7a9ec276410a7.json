@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for your message. I can see why the pills feel confusing. Warfarin is not on the medicine list in your record, so I can't say anything about it here. Your record does list omeprazole, rosuvastatin, and acetaminophen. Please keep taking your medicines as you have been, and your clinician will review your question about which pills go together and advise you. If you are taking warfarin, please tell the clinic so they can update your record. You can also book a visit or call the clinic to go over all your pills.\"}",
+  "inputTokens": 1277,
+  "outputTokens": 173
+}

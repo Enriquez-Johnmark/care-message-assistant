@@ -169,3 +169,11 @@ describe("d checks, after Claude's recorded drafts", () => {
     expect(failed(`${GOOD} You should start a medicine for this.`)).toContain("medicine-change")
   })
 })
+
+describe("d2 refusing to advise a change", () => {
+  it("d2 'I can't tell you to skip or change a medicine' is a refusal, not an instruction", () => {
+    expect(failed(`${GOOD} I can't tell you to skip or change a medicine.`)).toEqual([])
+    expect(failed(`${GOOD} I can't advise you to stop your metformin.`)).toEqual([])
+    expect(failed(`${GOOD} I can tell you to skip your evening dose.`)).toContain("medicine-change")
+  })
+})

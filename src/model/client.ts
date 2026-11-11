@@ -10,7 +10,7 @@
  */
 
 import { createHash } from "node:crypto"
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs"
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs"
 import { join } from "node:path"
 
 import Anthropic from "@anthropic-ai/sdk"
@@ -102,6 +102,8 @@ export class RecordedModel implements Model {
 export class RecordingModel implements Model {
   readonly name: string
   liveCalls = 0
+  /** The recordings asked for, by key. */
+  readonly used = new Set<string>()
 
   constructor(
     private readonly live: Model,
@@ -112,6 +114,7 @@ export class RecordingModel implements Model {
 
   async ask(question: Question): Promise<Answer> {
     const asked = { ...question, model: this.name }
+    this.used.add(recordingKey(asked))
     const file = join(this.dir, `${recordingKey(asked)}.json`)
     if (existsSync(file)) return new RecordedModel(this.name, this.dir).ask(question)
     this.liveCalls++
@@ -133,4 +136,16 @@ export function parseAnswer<T>(schema: z.ZodType<T>, text: string): T | undefine
   } catch {
     return undefined
   }
+}
+
+/** Deletes every recording in `dir` that none of `used` names; returns how many. */
+export function removeUnused(used: Set<string>, dir = RECORDINGS): number {
+  let removed = 0
+  for (const file of readdirSync(dir)) {
+    if (file.endsWith(".json") && !used.has(file.slice(0, -".json".length))) {
+      rmSync(join(dir, file))
+      removed++
+    }
+  }
+  return removed
 }

@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for writing and for telling us about the stomach aches. I'm sorry they are bothering you at night. I can't tell you to skip or change a medicine. Your clinician will review this side effect and advise you. Please keep taking your medicines as prescribed until you hear from them. If the stomach aches get worse, you can book a visit or call the clinic.\"}",
+  "inputTokens": 1279,
+  "outputTokens": 130
+}

@@ -1,7 +1,0 @@
-{
-  "model": "claude-sonnet-5-5",
-  "purpose": "draft",
-  "text": "{\"reply\":\"Hi {first_name}, thank you for writing. I'm sorry your knees have been aching more. Your clinician can talk with you about what may help, including whether a heating pad is right for you. Since the aching is getting worse, you can book a visit, or call the clinic if it gets worse. Please don't change any of your medicines on your own. Your clinician will advise if any change is needed.\"}",
-  "inputTokens": 1267,
-  "outputTokens": 129
-}

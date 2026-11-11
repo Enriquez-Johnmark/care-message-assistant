@@ -1,7 +1,0 @@
-{
-  "model": "claude-sonnet-5-5",
-  "purpose": "draft",
-  "text": "{\"reply\":\"Hi {first_name}, thank you for asking about your tiotropium. Your record lists it as 1 capsule inhaled once a day. Since you're not sure how the nurse showed you to use it, please call the clinic so someone can walk you through the right steps. Please don't guess or change how you use it in the meantime. Your clinician can also go over it with you. If your breathing gets worse, you can book a visit or call the clinic.\"}",
-  "inputTokens": 1292,
-  "outputTokens": 145
-}

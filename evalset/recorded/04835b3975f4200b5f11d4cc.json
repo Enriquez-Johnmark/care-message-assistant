@@ -1,7 +1,0 @@
-{
-  "model": "claude-sonnet-5-5",
-  "purpose": "draft",
-  "text": "{\"reply\":\"Hi {first_name}, thank you for your message. Your A1c on 2026-09-14 was 7.4%. The lab's range for this test is 4 to 5.6%. Your clinician is the best person to talk with you about what number is right for you and what it means for your health. Your follow-up visit with Dr. Example Lee is on the calendar for 2026-11-24, and you can also book a visit or call the clinic if you'd like to talk sooner.\"}",
-  "inputTokens": 1262,
-  "outputTokens": 153
-}

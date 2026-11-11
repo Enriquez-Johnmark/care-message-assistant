@@ -1,7 +1,0 @@
-{
-  "model": "claude-sonnet-5-5",
-  "purpose": "draft",
-  "text": "{\"reply\":\"Hi {first_name}, thank you for your message. I'm sorry you are being woken up so often at night. Furosemide is in your record, at 20 mg once a day. Please don't change when or how you take it until your clinician advises you. I will pass your question on so your clinician can review it. If the nighttime bathroom trips are new or getting worse, you can book a visit or call the clinic.\"}",
-  "inputTokens": 1403,
-  "outputTokens": 131
-}

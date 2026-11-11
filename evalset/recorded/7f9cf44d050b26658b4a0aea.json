@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for your message. Your eGFR on your latest test was 52 mL/min/1.73m2. The lab's range lists 60 as the low end, so 52 is below that. Your creatinine was 1.2 mg/dL, and the lab's range is 0.5 to 1.1. I can't tell from here whether your numbers are changing over time. Your clinician can talk with you about what your results mean for you and how they compare with before. If you have new or worse symptoms, you can book a visit or call the clinic.\"}",
+  "inputTokens": 1326,
+  "outputTokens": 180
+}

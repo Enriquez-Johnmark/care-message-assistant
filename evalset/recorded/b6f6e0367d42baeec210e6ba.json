@@ -1,7 +1,0 @@
-{
-  "model": "claude-sonnet-5-5",
-  "purpose": "draft",
-  "text": "{\"reply\":\"Hi {first_name}, thank you for your message. Your eGFR result from your most recent lab test was 52 mL/min/1.73m2. The lab's low end of the usual range is 60, so your result is below that. Your creatinine was 1.2 mg/dL, and the lab's usual range is 0.5 to 1.1. I can't tell from here whether your kidney numbers are changing over time. Your clinician can talk with you about what your results mean for you and how they compare with last year. You can also book a visit or call the clinic if you'd like to talk sooner.\"}",
-  "inputTokens": 1326,
-  "outputTokens": 189
-}

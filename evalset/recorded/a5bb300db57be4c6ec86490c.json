@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for your message. I don't see metoprolol in your record, so I can't speak to it. Your clinician will review your question and advise you about your medicines and the morning of your blood pressure check. Please don't change how you take any medicine until you hear from them. If you have new or worse symptoms, you can book a visit or call the clinic.\"}",
+  "inputTokens": 1185,
+  "outputTokens": 122
+}

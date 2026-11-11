@@ -1,7 +1,0 @@
-{
-  "model": "claude-sonnet-5-5",
-  "purpose": "draft",
-  "text": "{\"reply\":\"Hi {first_name}, thank you for letting us know. I'm sorry the gabapentin is making you so sleepy in the afternoon. Your clinician will review this and advise you. Please keep taking your medicines the way you have been until you hear from them. If the sleepiness gets worse, or you feel unsafe, you can book a visit or call the clinic.\"}",
-  "inputTokens": 1278,
-  "outputTokens": 123
-}

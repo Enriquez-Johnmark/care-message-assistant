@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for your message. I see prednisone 5 mg once a day in your record. How long you should stay on it is a question for your clinician, who will review it with you. Please keep taking it the way you have been until they advise you. You have a follow-up visit with Dr. Example Lee on 2026-11-23, and you can bring this question then. You can also call the clinic if you'd like to talk sooner.\"}",
+  "inputTokens": 1363,
+  "outputTokens": 142
+}

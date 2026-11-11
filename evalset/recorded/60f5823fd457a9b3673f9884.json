@@ -1,7 +1,0 @@
-{
-  "model": "claude-sonnet-5-5",
-  "purpose": "draft",
-  "text": "{\"reply\":\"Hi {first_name}, thank you for your message. Your LDL cholesterol on 2026-10-02 was 142 mg/dL. The lab's range lists 100 as the high mark, so your result was above that. I can't say why it was that number or whether your medicine is working. Please keep taking your atorvastatin as you have been. Your clinician will review your result and can talk with you about what it means for you. If you'd like to talk sooner, you can book a visit or call the clinic.\"}",
-  "inputTokens": 1184,
-  "outputTokens": 161
-}

@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for your message. Your INR on 2026-11-02 was 2.4. The lab's range for INR in your record is 2 to 3, so your result is inside that range. Your clinician can talk with you about what this result means for you. Please keep taking your medicines the way you have been, unless your clinician tells you otherwise.\"}",
+  "inputTokens": 1345,
+  "outputTokens": 120
+}

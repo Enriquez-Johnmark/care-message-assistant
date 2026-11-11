@@ -16,7 +16,7 @@ import { read } from "./fhir/reader.ts"
 import { fetchAndTakeIn } from "./fetch.ts"
 import { FhirServer } from "./fhir/client.ts"
 import { MailpitMailer } from "./mail.ts"
-import { ClaudeModel, RecordedModel, RecordingModel, type Model } from "./model/client.ts"
+import { ClaudeModel, RecordedModel, RecordingModel, removeUnused, type Model } from "./model/client.ts"
 import { MODEL } from "./model/questions.ts"
 import { connect, migrate } from "./store/db.ts"
 
@@ -135,7 +135,10 @@ async function main(argv: string[]): Promise<number> {
       })
       const live = values.record === true ? new RecordingModel(new ClaudeModel(MODEL)) : undefined
       const measured = await measure(live ?? new RecordedModel(MODEL), labelled)
-      if (live) console.log(`asked Claude ${String(live.liveCalls)} time(s); the rest were recorded`)
+      if (live) {
+        console.log(`asked Claude ${String(live.liveCalls)} time(s); the rest were recorded`)
+        console.log(`removed ${String(removeUnused(live.used))} recording(s) no question uses any more`)
+      }
       const text = report(measured)
       writeFileSync("evalset/report.md", text)
       console.log(text)

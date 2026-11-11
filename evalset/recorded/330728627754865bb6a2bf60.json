@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for letting us know about your upset stomach. I'm sorry you're not feeling well. Please don't change how you take your metformin for now. Your clinician will review this and advise you on what to do. If your stomach upset gets worse, please call the clinic. You can also book a visit to talk about it in person.\"}",
+  "inputTokens": 1274,
+  "outputTokens": 114
+}

@@ -1,7 +1,0 @@
-{
-  "model": "claude-sonnet-5-5",
-  "purpose": "draft",
-  "text": "{\"reply\":\"Hi {first_name}, thank you for writing and for keeping track of your blood pressure at home. I can't tell you to change how much lisinopril you take, so please don't take extra for now. Your clinician will advise you about this. Home readings around 150 are worth sharing, so you can book a visit or call the clinic to go over them. If you feel worse or have new symptoms, please call the clinic.\"}",
-  "inputTokens": 1260,
-  "outputTokens": 134
-}

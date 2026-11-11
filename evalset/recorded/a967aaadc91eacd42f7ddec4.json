@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for your message. Your potassium result from 2026-11-03 was 3.3 mmol/L. The lab's range is 3.5 to 5.1, so your result is below that range. Your clinician can talk with you about what this means for you, including whether any changes to your food make sense. Please don't change your medicines or diet on your own before then. If you have new or worse symptoms, you can book a visit or call the clinic.\"}",
+  "inputTokens": 1211,
+  "outputTokens": 150
+}

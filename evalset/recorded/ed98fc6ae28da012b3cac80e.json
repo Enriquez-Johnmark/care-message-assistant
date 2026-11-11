@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for your message. Your oxygen level at your visit on 2026-10-15 was 93%. The lab's range for this test is 95 to 100%, so your number was a little under that range. Your clinician can talk with you about what this number means for you. It's good that you feel about the same as always. If you notice new or worse symptoms, you can book a visit or call the clinic.\"}",
+  "inputTokens": 1281,
+  "outputTokens": 134
+}

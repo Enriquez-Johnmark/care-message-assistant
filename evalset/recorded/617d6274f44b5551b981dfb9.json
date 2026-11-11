@@ -1,7 +1,0 @@
-{
-  "model": "claude-sonnet-5-5",
-  "purpose": "draft",
-  "text": "{\"reply\":\"Hi {first_name}, thank you for your message. Your record shows your LDL cholesterol was 162 mg/dL on 2026-10-23. The lab's range lists 100 as the high end, so your result is above that. I can't say whether you should start a medicine. Your clinician can talk with you about what this result means for you and will advise you about any treatment. Please don't start anyone else's medicine on your own. If you'd like to talk it over in person, you can book a visit or call the clinic.\"}",
-  "inputTokens": 1087,
-  "outputTokens": 164
-}

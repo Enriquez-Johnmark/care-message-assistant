@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for your message. Your TSH result was 2.1 mIU/L. The lab's usual range is 0.4 to 4, so your result is inside that range. Your clinician is the best person to say what this means for you, including whether your dose is right. If you have questions before then, please bring them up with your clinician. Please keep taking your medicines the way you do now unless your clinician tells you something different. If you notice new or worse symptoms, you can book a visit or call the clinic.\"}",
+  "inputTokens": 1302,
+  "outputTokens": 167
+}

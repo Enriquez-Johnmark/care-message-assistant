@@ -20,3 +20,5 @@ On the first run **27 of 34** drafts passed. Four of the seven failures were the
 - one said "I can't say whether you should start a medicine", read as an instruction to start one.
 
 Each was fixed with a test, and **31 of 34** pass. The 3 still blocked name the medicine the patient asked about, to say it isn't in their record. The prompt tells the model not to, and the check rightly blocks it, so the clinician rewords those.
+
+Then the record's facts were put in a fixed order, because the FHIR server returns them in its own order and the same record gave different questions. 31 questions changed and were asked again. One new answer showed one more false alarm: "I can't tell you to skip or change a medicine" was read as an instruction. It was fixed with a test, and the result is again **31 of 34**.

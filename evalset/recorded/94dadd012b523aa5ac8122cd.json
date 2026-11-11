@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for writing. I'm sorry your knees have been aching more. I can't say for sure what is causing it, and your clinician can talk with you about the heating pad and your knee pain. Since the aching is worse, you can book a visit or call the clinic to have your knees looked at. If it gets worse, please call the clinic.\"}",
+  "inputTokens": 1267,
+  "outputTokens": 120
+}

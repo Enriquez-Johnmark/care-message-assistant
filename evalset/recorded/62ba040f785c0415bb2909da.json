@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for your message. I can see why you want to check before taking something new with your inhaler and montelukast. Ibuprofen is not in your record, so I can't say if it is okay for you. Your clinician will review your question and advise you. Please don't start anything new until you hear back from them. If your cramps are new or getting worse, you can book a visit or call the clinic.\"}",
+  "inputTokens": 1134,
+  "outputTokens": 132
+}

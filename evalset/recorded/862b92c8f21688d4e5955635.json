@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for asking about this. Food and warfarin is a good question to raise. Your clinician will review it and advise you on salads and your wife's spinach. Please keep taking your warfarin just as it is in your record for now. Your latest INR, on 2026-11-02, was 2.4, and the lab's range is 2 to 3. Your clinician can talk with you about what that means for you. You also have an INR check on 2026-11-16 with Nurse Example Park, and you can ask about food then too. You can also call the clinic or book a visit if you would like to talk sooner.\"}",
+  "inputTokens": 1368,
+  "outputTokens": 548
+}

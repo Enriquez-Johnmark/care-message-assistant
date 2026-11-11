@@ -1,7 +1,0 @@
-{
-  "model": "claude-sonnet-5-5",
-  "purpose": "draft",
-  "text": "{\"reply\":\"Hi {first_name}, thank you for writing. I'm sorry the stomach ache has been bothering you. Please don't skip or change your metformin on your own. Your clinician will review your message about the stomach ache and your sugars, and will advise you about your medicine. If the stomach pain gets worse, you can book a visit or call the clinic.\"}",
-  "inputTokens": 1279,
-  "outputTokens": 118
-}

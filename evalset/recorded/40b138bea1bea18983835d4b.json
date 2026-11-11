@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for your message. Your LDL cholesterol result was 162 mg/dL. The lab's high mark for LDL is 100 mg/dL, so your number is above that range. I can't say whether you should start any medicine. Your clinician will advise you, and they can talk with you about what this result means for you. Please don't start anything until you've heard from them. You can also book a visit or call the clinic if you'd like to talk it over.\"}",
+  "inputTokens": 1087,
+  "outputTokens": 153
+}

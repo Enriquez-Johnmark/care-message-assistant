@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for writing and for checking your pressure at home. Lisinopril is on your medicine list. I can't tell you to take extra or change how you take it. Your clinician will advise you on that, so please don't change your dose before they do. Your home readings around 150 are worth sharing with them. If you want to talk sooner, you can book a visit or call the clinic. If you feel worse or have new symptoms, please call the clinic.\"}",
+  "inputTokens": 1260,
+  "outputTokens": 152
+}

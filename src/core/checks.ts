@@ -233,7 +233,7 @@ const MEDICINE_CHANGE = [
 /** Words before a change verb that make it not an instruction: "don't stop…",
  *  "I can't say whether you should start…". */
 const NOT_A_CHANGE =
-  /\b(?:don't|dont|do not|never|please don't|please do not|whether you should|whether to|if you should)\s*$/
+  /\b(?:don't|dont|do not|never|please don't|please do not|whether you should|whether to|if you should|(?:can't|cannot|can not|am not able to|won't) (?:tell|advise|ask) you to)\s*$/
 
 const PROMISES = [
   /\b(?:we|i|someone|a nurse|the nurse|the doctor|your doctor|dr \w+|our team|the clinic|the office)(?: will|'ll| shall) (?:call|phone|contact|get back|reach out|text|email|follow up|see you|send)\b/,

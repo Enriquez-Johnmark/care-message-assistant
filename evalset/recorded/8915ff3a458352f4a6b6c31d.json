@@ -1,0 +1,7 @@
+{
+  "model": "claude-sonnet-5-5",
+  "purpose": "draft",
+  "text": "{\"reply\":\"Hi {first_name}, thank you for your message. Your LDL cholesterol on 2026-10-02 was 142 mg/dL. The lab's range lists 100 as the high mark, so your result is above that. I can't say why it is at that level or whether your medicine is working. Please keep taking your medicines as you have been, and your clinician will review this and can talk with you about what it means for you. If you would like to talk it over sooner, you can book a visit or call the clinic.\"}",
+  "inputTokens": 1184,
+  "outputTokens": 159
+}
