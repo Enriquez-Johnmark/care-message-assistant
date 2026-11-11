@@ -10,7 +10,7 @@ Each gate needs the owner's explicit "yes"; an approval for one phase never carr
 
 | Phase | Status |
 | --- | --- |
-| 1. Research | **waiting**: starts once Care Reminders is finished (the series is built one project at a time, decided 2026-11-10) |
+| 1. Research | done (2026-11-11, `docs/research/README.md`) |
 | 2. Brief | not started |
 | 3. Spec & acceptance criteria | not started |
 | 4. Architecture | not started |
