@@ -18,6 +18,7 @@ import { FhirServer } from "./fhir/client.ts"
 import { MailpitMailer } from "./mail.ts"
 import { ClaudeModel, RecordedModel, RecordingModel, removeUnused, type Model } from "./model/client.ts"
 import { MODEL } from "./model/questions.ts"
+import { writeReplies } from "./sending.ts"
 import { connect, migrate } from "./store/db.ts"
 
 const USAGE = `usage: pnpm cli migrate
@@ -120,6 +121,12 @@ async function main(argv: string[]): Promise<number> {
           console.error("fetching failed:", error instanceof Error ? error.message : error)
         })
       }, tick)
+      // Approved replies are written to the FHIR server within seconds (F4).
+      setInterval(() => {
+        writeReplies({ db, clock: clock() }, fhir).catch((error: unknown) => {
+          console.error("writing replies failed:", error instanceof Error ? error.message : error)
+        })
+      }, 5_000)
       return await new Promise<number>(() => undefined)
     }
     case "eval": {
