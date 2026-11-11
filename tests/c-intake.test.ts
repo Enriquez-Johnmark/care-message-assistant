@@ -81,7 +81,7 @@ describe("c sorting and drafting", () => {
 
     const taken = await takeIn({ db, clock: clock(), model }, ...pair("m01"))
 
-    const guidance = await currentGuidance(db)
+    const guidance = await currentGuidance(db, clock())
     expect(await drafts(db, taken.id)).toEqual([
       expect.objectContaining({ source: "model", model: "claude-test", guidance_version: guidance.version }),
     ])
@@ -91,7 +91,7 @@ describe("c sorting and drafting", () => {
   it("c4 changing the guidance makes a new version; earlier drafts keep the version they used", async () => {
     const db = await freshDb()
     const first = await takeIn({ db, clock: clock(), model: new FakeModel() }, ...pair("m01"))
-    const before = await currentGuidance(db)
+    const before = await currentGuidance(db, clock())
 
     const after = await changeGuidance(
       db,
@@ -135,9 +135,10 @@ describe("c2 the clinic's templates", () => {
       return record ? [{ message: m, record }] : []
     })) {
       for (const template of [URGENT_REPLY, ADMIN_REPLY]) {
-        expect(check(template, { facts: record.facts, message: message.text }).problems, message.key).toEqual(
-          [],
-        )
+        expect(
+          check(template, { facts: record.facts, message: message.text, emergencyLines: true }).problems,
+          message.key,
+        ).toEqual([])
       }
     }
   })

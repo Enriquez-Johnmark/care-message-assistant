@@ -60,6 +60,8 @@ export async function addDraft(
     by: string
   },
 ): Promise<string> {
+  // One draft at a time per message, so two never take the same attempt number.
+  await db.query("select id from messages where id = $1 for update", [draft.messageId])
   const row = await db.query<{ id: string }>(
     `insert into drafts (message_id, attempt, source, model, guidance_version, text, problems, grade, created_at, created_by)
      values ($1, coalesce((select max(attempt) from drafts where message_id = $1), 0) + 1, $2, $3, $4, $5, $6, $7, $8, $9)
@@ -79,4 +81,21 @@ export async function addDraft(
   const id = row.rows[0]?.id
   if (!id) throw new Error("the draft wasn't saved")
   return id
+}
+
+/** A message already here, and whether it was settled: flagged, drafted or
+ *  left for a person. One saved just before a crash isn't. */
+export async function existingMessage(
+  db: Db | Tx,
+  fhirId: string,
+): Promise<{ id: string; settled: boolean } | undefined> {
+  const row = (
+    await db.query<{ id: string; settled: boolean }>(
+      `select id, (needs_person is not null or status <> 'open'
+                   or exists (select 1 from drafts d where d.message_id = m.id)) as settled
+       from messages m where fhir_id = $1`,
+      [fhirId],
+    )
+  ).rows[0]
+  return row
 }

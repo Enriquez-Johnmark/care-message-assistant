@@ -34,6 +34,9 @@ export interface Context {
   facts: RecordFacts
   /** The patient's message: a number or date the patient wrote may be repeated. */
   message: string
+  /** The clinic's own words (its urgent reply, a clinician's text) may give
+   *  the emergency lines 911 and 988; a model's draft may not. */
+  emergencyLines?: boolean
 }
 
 /** The fill-ins a draft may use; code fills them in. */
@@ -310,8 +313,7 @@ function allowed(context: Context): { numbers: Set<string>; dateWords: Set<strin
   }
   for (const t of message.match(TIME) ?? []) times.add(t.replace(/^0/, ""))
   addNumbers(message)
-  // The emergency lines may always be given.
-  addNumbers("911 988")
+  if (context.emergencyLines === true) addNumbers("911 988")
   const said = lower(message)
   for (const w of [...MONTHS, ...WEEKDAYS, ...RELATIVE_DAYS]) {
     // "may" in a message is an ordinary word unless a day number follows.

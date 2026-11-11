@@ -16,7 +16,7 @@ import { currentGuidance } from "./guidance.ts"
 import { parseAnswer, type Model } from "./model/client.ts"
 import { DraftAnswer, SortAnswer, draftQuestion, sortQuestion, type Question } from "./model/questions.ts"
 import { record as audit, SYSTEM } from "./store/audit.ts"
-import { addDraft, insertMessage, savePatient } from "./store/clinic.ts"
+import { addDraft, existingMessage, insertMessage, savePatient } from "./store/clinic.ts"
 import { transaction, type Db } from "./store/db.ts"
 import { ADMIN_REPLY, URGENT_REPLY } from "./templates.ts"
 
@@ -35,11 +35,17 @@ export async function takeIn(
   patient: PatientRecord,
 ): Promise<{ id: string; outcome: Outcome }> {
   const { db, clock } = deps
-  const flags = redFlags(message.text)
+  // B2: the subject is read too; an emergency may be named only there.
+  const flags = redFlags(`${message.subject}\n${message.text}`)
   const stored = await transaction(db, async (tx) => {
     const patientId = await savePatient(tx, patient, clock.now())
     const id = await insertMessage(tx, message, patientId, clock.now())
-    if (id === undefined) return undefined
+    if (id === undefined) {
+      // Saved before, but left with nothing (the process died while the model
+      // was asked): taken in again from here.
+      const existing = await existingMessage(tx, message.fhirId)
+      return existing && !existing.settled ? existing.id : undefined
+    }
     await audit(tx, {
       at: clock.now(),
       actor: SYSTEM,
@@ -65,9 +71,7 @@ export async function takeIn(
     return id
   })
   if (stored === undefined) {
-    const id = (
-      await db.query<{ id: string }>("select id from messages where fhir_id = $1", [message.fhirId])
-    ).rows[0]?.id
+    const id = (await existingMessage(db, message.fhirId))?.id
     return { id: id ?? "", outcome: "already-here" }
   }
   const id = stored
@@ -75,12 +79,16 @@ export async function takeIn(
   if (flags.length > 0) return { id, outcome: "flagged" }
   if (deps.model === null) return await needsPerson(deps, id, "no model is set up")
 
-  const sorted = await ask(deps, id, sortQuestion(message.text, patient.person))
+  const sorted = await ask(deps, id, sortQuestion(message, patient.person))
   const sort = sorted === undefined ? undefined : parseAnswer(SortAnswer, sorted)
   if (sort === undefined) return await needsPerson(deps, id, "the model's sorting couldn't be read")
   await transaction(db, async (tx) => {
     // B4: the model can raise a message to "soon", never above or below a red flag.
-    await tx.query("update messages set type = $2, urgency = $3 where id = $1", [id, sort.type, sort.urgency])
+    await tx.query("update messages set type = $2 where id = $1", [id, sort.type])
+    await tx.query("update messages set urgency = $2 where id = $1 and urgency <> 'urgent'", [
+      id,
+      sort.urgency,
+    ])
     await audit(tx, {
       at: clock.now(),
       actor: deps.model?.name ?? SYSTEM,
@@ -98,8 +106,8 @@ export async function takeIn(
     return { id, outcome: "template" }
   }
 
-  const guidance = await currentGuidance(db)
-  const drafted = await ask(deps, id, draftQuestion(message.text, patient, guidance.text))
+  const guidance = await currentGuidance(db, clock)
+  const drafted = await ask(deps, id, draftQuestion(message, patient, guidance.text))
   const draft = drafted === undefined ? undefined : parseAnswer(DraftAnswer, drafted)
   if (draft === undefined) return await needsPerson(deps, id, "the model's draft couldn't be read")
   await transaction(db, (tx) =>
@@ -122,20 +130,26 @@ export async function takeIn(
 async function ask(deps: Deps, messageId: string, question: Question): Promise<string | undefined> {
   const model = deps.model
   if (model === null) return undefined
+  let answer: Awaited<ReturnType<Model["ask"]>> | undefined
   try {
-    const answer = await model.ask(question)
-    await deps.db.query(
-      "insert into model_calls (message_id, purpose, model, input_tokens, output_tokens, ok, at) values ($1, $2, $3, $4, $5, true, $6)",
-      [messageId, question.purpose, model.name, answer.inputTokens, answer.outputTokens, deps.clock.now()],
-    )
-    return answer.text
+    answer = await model.ask(question)
   } catch {
-    await deps.db.query(
-      "insert into model_calls (message_id, purpose, model, input_tokens, output_tokens, ok, at) values ($1, $2, $3, 0, 0, false, $4)",
-      [messageId, question.purpose, model.name, deps.clock.now()],
-    )
-    return undefined
+    answer = undefined
   }
+  // Logged apart from the call: a logging failure is never taken for a model failure.
+  await deps.db.query(
+    "insert into model_calls (message_id, purpose, model, input_tokens, output_tokens, ok, at) values ($1, $2, $3, $4, $5, $6, $7)",
+    [
+      messageId,
+      question.purpose,
+      model.name,
+      answer?.inputTokens ?? 0,
+      answer?.outputTokens ?? 0,
+      answer !== undefined,
+      deps.clock.now(),
+    ],
+  )
+  return answer?.text
 }
 
 async function saveDraft(
@@ -149,7 +163,11 @@ async function saveDraft(
   model: string | null,
   guidanceVersion: number | null,
 ): Promise<void> {
-  const checked = check(text, { facts: patient.facts, message: message.text })
+  const checked = check(text, {
+    facts: patient.facts,
+    message: `${message.subject}\n${message.text}`,
+    emergencyLines: source !== "model",
+  })
   const at = deps.clock.now()
   const draftId = await addDraft(tx, {
     messageId,

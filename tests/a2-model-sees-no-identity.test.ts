@@ -37,7 +37,7 @@ describe("a2 the model never sees who the patient is", () => {
       if (!patient) throw new Error(message.id)
       const record = read(patientResources(patient)).records[0]
       if (!record) throw new Error(patient.id)
-      const sent = [sortQuestion(message.text, record.person), draftQuestion(message.text, record, GUIDANCE)]
+      const sent = [sortQuestion(message, record.person), draftQuestion(message, record, GUIDANCE)]
         .map((q) => `${q.system}\n${q.user}`)
         .join("\n")
         .toLowerCase()
