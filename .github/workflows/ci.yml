@@ -49,3 +49,94 @@ jobs:
         with:
           name: evidence-pack
           path: evidence.html
+
+  web:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: web/package.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - name: Lint and format
+        run: pnpm lint
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: Test
+        run: pnpm test
+      - name: Build
+        run: pnpm build
+
+  # The whole journey in a browser, against the real server, Postgres, Mailpit
+  # and HAPI FHIR, drafting from the recorded answers (no key, no cost).
+  e2e:
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: care_messages
+          POSTGRES_PASSWORD: care_messages
+          POSTGRES_DB: care_messages
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U care_messages" --health-interval 2s --health-retries 30
+      mailpit:
+        image: axllent/mailpit:v1.27.11
+        ports:
+          - 8025:8025
+      hapi:
+        image: hapiproject/hapi:v8.4.0-1
+        ports:
+          - 8090:8080
+    env:
+      DATABASE_URL: postgres://care_messages:care_messages@localhost:5432/care_messages
+      FHIR_URL: http://127.0.0.1:8090/fhir
+      PUBLIC_BASE_URL: http://127.0.0.1:3000
+      BIND_ADDR: 127.0.0.1:3000
+      WORKER_TICK_SECS: "3600"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build the app
+        working-directory: web
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build
+          # The runner image already has Chromium's libraries; the extra
+          # system packages come from Ubuntu's mirror, which can be
+          # unreachable, so they are tried for two minutes at most.
+          timeout 120 pnpm exec playwright install-deps chromium || echo "::warning::couldn't install Chromium's extra system packages; trying without them"
+          pnpm exec playwright install chromium
+      - name: Start with the made-up clinic and its staff, fetching from HAPI FHIR
+        run: |
+          for _ in $(seq 1 90); do curl -sf "$FHIR_URL/metadata" >/dev/null && break; sleep 2; done
+          pnpm cli migrate
+          pnpm cli add-staff --email dr.lee@clinic.example.test --name "Dr. Example Lee" --role clinician
+          pnpm cli add-staff --email desk@clinic.example.test --name "Example Front Desk" --role front-desk
+          pnpm cli add-staff --email admin@clinic.example.test --name "Example Administrator" --role administrator
+          pnpm cli load-made-up
+          nohup pnpm cli serve --recorded > server.log 2>&1 &
+          for _ in $(seq 1 30); do curl -sf http://127.0.0.1:3000/health >/dev/null && break; sleep 1; done
+      - name: Browser tests
+        working-directory: web
+        run: pnpm e2e
+        env:
+          E2E_BASE_URL: http://127.0.0.1:3000
+      - name: Server log
+        if: failure()
+        run: cat server.log
