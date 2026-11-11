@@ -73,6 +73,6 @@ Read only through an injected `Clock`; ESLint bans `Date.now()` and `new Date()`
 | M4 | Logins, review and the activity log, with the staff pages | B3, E1–E4, G1–G3, H1 | done (2026-11-11) |
 | M5 | Sending and the portal | A4, F1–F4 | done (2026-11-11) |
 | M6 | Measurement: Claude's recorded drafts, red-flag recall, the review report | I2, I3 | done (2026-11-11) |
-| M7 | Showcase: README, screenshots, walkthrough video, portfolio page | none | planned |
+| M7 | Showcase: README, screenshots, walkthrough video, portfolio page | none | done (2026-11-11, `docs/showcase/`) |
 
 Each milestone ends with a code review and an evidence page.

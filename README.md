@@ -2,9 +2,15 @@
 
 Helps a clinic's care team answer patients' portal messages. Red flags are caught in code before any model sees a message. Claude drafts a reply from the patient's record and the clinic's own guidance, code checks the draft against that record, and a clinician edits and approves the exact text before it reaches the patient. Every step is in an append-only audit log.
 
-**Status:** built to M6 (data and FHIR; red flags and checks; sorting and drafting; logins, review and the log; sending and the portal; measurement), with all 37 acceptance criteria proven ([the evidence page](docs/evidence/m6.html)); the showcase (M7) is next. See [`AGENTS.md`](AGENTS.md) for the phases and [`docs/architecture.md`](docs/architecture.md) for the build order.
+**Status:** built (M1–M7: data and FHIR; red flags and checks; sorting and drafting; logins, review and the log; sending and the portal; measurement; the showcase), with all 37 acceptance criteria proven ([the evidence page](docs/evidence/m6.html)). See [`AGENTS.md`](AGENTS.md) for the phases and [`docs/architecture.md`](docs/architecture.md) for the build order.
 
 The third of four healthcare projects, after [Lab Report Assistant](https://github.com/Enriquez-Johnmark/lab-report-assistant) and [Care Reminders](https://github.com/Enriquez-Johnmark/care-reminders). Made-up clinic, made-up patients: this repository contains no real patient data and names no real company outside its research notes.
+
+## See it
+
+A captioned walkthrough (1 min 23 s), from fetching the messages to the patient reading an approved reply: [`docs/showcase/walkthrough.mp4`](docs/showcase/walkthrough.mp4). Screenshots and how to make them again: [`docs/showcase/`](docs/showcase/README.md).
+
+![Reviewing Claude's draft beside the patient's record](docs/showcase/desktop-3-review.png)
 
 ## Why
 
