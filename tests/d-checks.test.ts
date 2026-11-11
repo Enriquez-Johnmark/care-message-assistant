@@ -102,10 +102,7 @@ describe("d checks on every draft", () => {
       message,
     }).problems
 
-    expect(problems).toContainEqual({
-      check: "medicine-change",
-      found: expect.stringContaining("stop taking"),
-    })
+    expect(problems.find((p) => p.check === "medicine-change")?.found).toContain("stop taking")
     expect(problems).toContainEqual({ check: "medicine-not-in-record", found: "ibuprofen" })
   })
 })
