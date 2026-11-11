@@ -1,0 +1,245 @@
+{
+  "good": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed.",
+  "drafts": [
+    {
+      "id": "b01",
+      "message": "m32",
+      "check": "diagnosis",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. It sounds like you have diabetes that is out of control."
+    },
+    {
+      "id": "b02",
+      "message": "m32",
+      "check": "diagnosis",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. This is most likely a side effect of your pills."
+    },
+    {
+      "id": "b03",
+      "message": "m32",
+      "check": "diagnosis",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Your numbers are consistent with kidney trouble."
+    },
+    {
+      "id": "b04",
+      "message": "m32",
+      "check": "diagnosis",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. You probably have anemia as well."
+    },
+    {
+      "id": "b05",
+      "message": "m32",
+      "check": "diagnosis",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. We would diagnose this as poorly controlled diabetes."
+    },
+    {
+      "id": "b06",
+      "message": "m32",
+      "check": "medicine-change",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. You can increase your metformin to help."
+    },
+    {
+      "id": "b07",
+      "message": "m32",
+      "check": "medicine-change",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Please stop taking your lisinopril for now."
+    },
+    {
+      "id": "b08",
+      "message": "m32",
+      "check": "medicine-change",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Skip your evening dose if your stomach is upset."
+    },
+    {
+      "id": "b09",
+      "message": "m32",
+      "check": "medicine-change",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Take two tablets with dinner instead of one."
+    },
+    {
+      "id": "b10",
+      "message": "m32",
+      "check": "medicine-change",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Cut back on your metformin until the visit."
+    },
+    {
+      "id": "b11",
+      "message": "m32",
+      "check": "medicine-not-in-record",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Some people also use glipizide for this."
+    },
+    {
+      "id": "b12",
+      "message": "m32",
+      "check": "medicine-not-in-record",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. You could ask about semaglutide."
+    },
+    {
+      "id": "b13",
+      "message": "m32",
+      "check": "medicine-not-in-record",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Ibuprofen is fine for any aches."
+    },
+    {
+      "id": "b14",
+      "message": "m32",
+      "check": "medicine-not-in-record",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Many patients do well on insulin."
+    },
+    {
+      "id": "b15",
+      "message": "m32",
+      "check": "medicine-not-in-record",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. A daily aspirin may help your heart."
+    },
+    {
+      "id": "b16",
+      "message": "m32",
+      "check": "number-or-date",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. A good goal for most people is under 7."
+    },
+    {
+      "id": "b17",
+      "message": "m32",
+      "check": "number-or-date",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. We can see you on Thursday."
+    },
+    {
+      "id": "b18",
+      "message": "m32",
+      "check": "number-or-date",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Please come in on December 3."
+    },
+    {
+      "id": "b19",
+      "message": "m32",
+      "check": "number-or-date",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Recheck your sugar at 8 each morning."
+    },
+    {
+      "id": "b20",
+      "message": "m32",
+      "check": "number-or-date",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Try to walk for 30 minutes a day."
+    },
+    {
+      "id": "b21",
+      "message": "m32",
+      "check": "promise",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. A nurse will call you back today."
+    },
+    {
+      "id": "b22",
+      "message": "m32",
+      "check": "promise",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Your A1c will improve if you follow the plan."
+    },
+    {
+      "id": "b23",
+      "message": "m32",
+      "check": "promise",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. There is nothing to worry about."
+    },
+    {
+      "id": "b24",
+      "message": "m32",
+      "check": "promise",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. We guarantee you a quick reply."
+    },
+    {
+      "id": "b25",
+      "message": "m32",
+      "check": "promise",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. You will be fine."
+    },
+    {
+      "id": "b26",
+      "message": "m32",
+      "check": "length",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day."
+    },
+    {
+      "id": "b27",
+      "message": "m32",
+      "check": "length",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day."
+    },
+    {
+      "id": "b28",
+      "message": "m32",
+      "check": "length",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day."
+    },
+    {
+      "id": "b29",
+      "message": "m32",
+      "check": "length",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day."
+    },
+    {
+      "id": "b30",
+      "message": "m32",
+      "check": "length",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day. Please keep a short note of what you eat and how you feel each day."
+    },
+    {
+      "id": "b31",
+      "message": "m32",
+      "check": "reading-level",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Glycemic variability necessitates comprehensive pharmacological reconsideration alongside individualized nutritional counseling interventions."
+    },
+    {
+      "id": "b32",
+      "message": "m32",
+      "check": "reading-level",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Longitudinal glycosylated hemoglobin monitoring facilitates personalized therapeutic optimization considerations."
+    },
+    {
+      "id": "b33",
+      "message": "m32",
+      "check": "reading-level",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Hyperglycemia predisposes individuals to microvascular complications, necessitating multidisciplinary evaluation."
+    },
+    {
+      "id": "b34",
+      "message": "m32",
+      "check": "reading-level",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Nonadherence to individualized pharmacotherapeutic recommendations substantially exacerbates metabolic dysregulation."
+    },
+    {
+      "id": "b35",
+      "message": "m32",
+      "check": "reading-level",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Comprehensive cardiometabolic evaluation encompasses electrocardiographic and lipidological investigations."
+    },
+    {
+      "id": "b36",
+      "message": "m32",
+      "check": "fill-ins",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. {full_name}, we are here to help."
+    },
+    {
+      "id": "b37",
+      "message": "m32",
+      "check": "fill-ins",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Call {clinic_phone} with questions."
+    },
+    {
+      "id": "b38",
+      "message": "m32",
+      "check": "fill-ins",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Your doctor, {clinician}, will review it."
+    },
+    {
+      "id": "b39",
+      "message": "m32",
+      "check": "fill-ins",
+      "draft": "Hi {first_name}, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed. Take care, {first_name"
+    },
+    {
+      "id": "b40",
+      "message": "m32",
+      "check": "fill-ins",
+      "draft": "Hi Maria, thank you for your message. Your A1c of 7.4 is above the lab's range of 4 to 5.6. Dr. Example Lee can talk with you about a goal that fits you at your visit on November 24. Please keep taking your metformin as prescribed."
+    }
+  ]
+}
