@@ -22,7 +22,7 @@ const CATEGORIES: { category: string; patterns: string[] }[] = [
     category: "chest pain",
     patterns: [
       `chest${gap(3)} (?:pain|pains|hurts|hurting|ache|aches|pres?ure|tight|tightnes|heavy|heavines|crushing|squeezing)`,
-      `(?:pain|pres?ure|tightnes|heavines|squeezing)${gap(2)} (?:in|on) my chest`,
+      `(?:pain|pres?ure|tightnes|heavines|squeezing)${gap(5)} chest`,
       `heart atack`,
     ],
   },
@@ -40,10 +40,10 @@ const CATEGORIES: { category: string; patterns: string[] }[] = [
   {
     category: "stroke signs",
     patterns: [
-      `(?:face|mouth|smile)${gap(3)} (?:droop|drooping|droops|drooped|lopsided)`,
+      `(?:face|mouth|smile)${gap(3)} (?:droop|droopy|drooping|droops|drooped|lopsided)`,
       `drooping`,
       `slur(?:ed|ing|s)?${gap(1)} (?:speech|words|talking)`,
-      `(?:speech|talking|words)${gap(2)} slur(?:ed|ing|s)?`,
+      `(?:speech|talking|words)${gap(4)} slur(?:ed|ing|s)?`,
       `(?:arm|leg)${gap(3)} (?:weak|numb|limp|dead)`,
       `(?:cant|cannot|can not) (?:lift|raise|move) my (?:arm|leg)`,
       `numb${gap(3)} one side`,
@@ -56,7 +56,7 @@ const CATEGORIES: { category: string; patterns: string[] }[] = [
     patterns: [
       `suicid\\w*`,
       `kil+ my ?self`,
-      `end (?:my life|it al+|things)`,
+      `end(?:ing)? (?:my life|it al+|things)`,
       `(?:want|wanted|wish) (?:to|i was|i were) (?:die|dead)`,
       `better of+ (?:without me|dead)`,
       `(?:hurt|harm|cut)(?:ing)? my ?self`,
@@ -74,12 +74,16 @@ const CATEGORIES: { category: string; patterns: string[] }[] = [
       `soaking${gap(3)} (?:towel|towels|pad|pads|through)`,
       `(?:vomiting|throwing up|coughing up|coughed up|threw up|puking) blod`,
       `blod everywhere`,
+      // Signs of bleeding in the gut.
+      `(?:black|tary|bloody)${gap(1)} (?:stool|stools|poop|bowel movement)`,
+      `(?:stool|stools|poop)${gap(3)} (?:black|tary|bloody)`,
+      `cofee grounds`,
     ],
   },
   {
     category: "severe allergic reaction",
     patterns: [
-      `throat${gap(2)} (?:swel\\w*|closing|close up|closing up|tight)`,
+      `throat${gap(5)} (?:swel\\w*|closing|close up|closing up|tight)`,
       `(?:swolen|swel\\w*)${gap(2)} (?:tongue|lips|lip|throat|face)`,
       `(?:tongue|lips|lip)${gap(2)} (?:swel\\w*|swolen)`,
       `anaphyla\\w*`,
@@ -104,6 +108,10 @@ const CATEGORIES: { category: string; patterns: string[] }[] = [
       `overdose\\w*`,
       `took${gap(2)} (?:too many|to many|the whole bottle|al+ (?:of )?my (?:pils|pil|tablets|medicine|meds))`,
       `too many (?:pils|tablets|of my pils)`,
+      // A dose taken twice, doubled or all at once by mistake.
+      `took${gap(4)} (?:twice|double|an extra dose|two doses|too much)`,
+      `took the whole${gap(5)} (?:pils|pil|bottle|tablets)`,
+      `double dose`,
     ],
   },
 ]

@@ -43,3 +43,16 @@ describe("b1 red flags", () => {
     expect(redFlags("Crushing chest pressure")[0]?.found).toMatch(/^chest pres/)
   })
 })
+
+describe("b1 on the 80 labelled messages", () => {
+  it("b1 every red flag in the labelled set is flagged; the only false alarms are negated phrases", async () => {
+    const { demoMessages } = await import("../src/demo.ts")
+    const messages = demoMessages()
+
+    const missed = messages.filter((m) => m.redFlag && redFlags(m.text).length === 0).map((m) => m.id)
+    const falseAlarms = messages.filter((m) => !m.redFlag && redFlags(m.text).length > 0)
+
+    expect(missed).toEqual([])
+    expect(falseAlarms.map((m) => m.tricky)).toEqual(falseAlarms.map(() => "negated"))
+  })
+})
