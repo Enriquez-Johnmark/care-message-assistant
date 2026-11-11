@@ -310,6 +310,8 @@ function allowed(context: Context): { numbers: Set<string>; dateWords: Set<strin
   }
   for (const t of message.match(TIME) ?? []) times.add(t.replace(/^0/, ""))
   addNumbers(message)
+  // The emergency lines may always be given.
+  addNumbers("911 988")
   const said = lower(message)
   for (const w of [...MONTHS, ...WEEKDAYS, ...RELATIVE_DAYS]) {
     // "may" in a message is an ordinary word unless a day number follows.
