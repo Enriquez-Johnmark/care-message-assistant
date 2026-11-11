@@ -13,8 +13,8 @@ Each gate needs the owner's explicit "yes"; an approval for one phase never carr
 | 1. Research | done (2026-11-11, `docs/research/README.md`) |
 | 2. Brief | done, approved 2026-11-11 under the standing approval (`docs/product/brief.md`) |
 | 3. Spec & acceptance criteria | done, approved 2026-11-11 under the standing approval (`docs/product/spec.md`, 37 criteria) |
-| 4. Architecture | not started |
-| 5. Build | not started |
+| 4. Architecture | done, approved 2026-11-11 under the standing approval (`docs/architecture.md`) |
+| 5. Build | **in progress**, approved 2026-11-11: M1 (data and FHIR) next |
 
 **No application code exists or gets written until the build is approved.**
 
