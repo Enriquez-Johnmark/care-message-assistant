@@ -206,16 +206,17 @@ export async function edit(
     const message = await lockMessage(tx, messageId)
     if (message.status !== "open") throw new ReviewError("answered", "this message was already answered")
     const current = await latestDraft(tx, messageId)
-    if (!mayHandle(who, current?.source === "template" ? "template" : "clinician")) {
-      throw new ReviewError("not-allowed", "only a clinician can write this reply")
-    }
+    // Only a clinician writes a reply's text; the front desk sends the
+    // clinic's admin template as it stands (E1).
+    if (who.role !== "clinician")
+      throw new ReviewError("not-allowed", "only a clinician can write or edit a reply")
     const checked = check(trimmed, {
       facts: message.facts,
       message: `${message.subject}\n${message.text}`,
       emergencyLines: true,
     })
     const at = deps.clock.now()
-    const source = current?.source === "template" && who.role === "front-desk" ? "template" : "clinician"
+    const source = "clinician"
     const id = await addDraft(tx, {
       messageId,
       source,

@@ -12,7 +12,22 @@ export interface Fetched {
   refused: { resource: string; reason: string }[]
 }
 
+/** One fetch at a time, across every process: a second waits for the first,
+ *  so a message is never taken in by two at once. */
+const FETCH_LOCK = 4_217_001
+
 export async function fetchAndTakeIn(deps: Deps, server: FhirServer, actor = SYSTEM): Promise<Fetched> {
+  const lock = await deps.db.connect()
+  try {
+    await lock.query("select pg_advisory_lock($1)", [FETCH_LOCK])
+    return await fetchLocked(deps, server, actor)
+  } finally {
+    await lock.query("select pg_advisory_unlock($1)", [FETCH_LOCK]).catch(() => undefined)
+    lock.release()
+  }
+}
+
+async function fetchLocked(deps: Deps, server: FhirServer, actor: string): Promise<Fetched> {
   const result = read(await server.fetchClinic())
   for (const record of result.records) await savePatient(deps.db, record, deps.clock.now())
   const messages: Record<Outcome, number> = {

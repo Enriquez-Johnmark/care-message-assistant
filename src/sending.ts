@@ -16,6 +16,22 @@ import type { Db } from "./store/db.ts"
 
 /** Writes every reply not yet on the FHIR server; returns how many were written. */
 export async function writeReplies(deps: { db: Db; clock: Clock }, fhir: FhirServer): Promise<number> {
+  // One round at a time in this process; the write itself is safe to repeat.
+  if (writing) return 0
+  writing = true
+  try {
+    return await writePending(deps, fhir)
+  } finally {
+    writing = false
+  }
+}
+
+/** Tries at most this many times; the reply then waits for a person. */
+const MAX_ATTEMPTS = 10
+
+let writing = false
+
+async function writePending(deps: { db: Db; clock: Clock }, fhir: FhirServer): Promise<number> {
   const pending = (
     await deps.db.query<{
       id: string
@@ -27,7 +43,10 @@ export async function writeReplies(deps: { db: Db; clock: Clock }, fhir: FhirSer
     }>(
       `select r.id, r.text, r.sent_at, m.fhir_id as message_fhir_id, p.fhir_id as patient_fhir_id, m.id as message_id
        from replies r join messages m on m.id = r.message_id join patients p on p.id = m.patient_id
-       where r.fhir_written_at is null order by r.sent_at`,
+       where r.fhir_written_at is null and r.fhir_attempts < $1
+         and (r.fhir_next_try_at is null or r.fhir_next_try_at <= $2)
+       order by r.sent_at`,
+      [MAX_ATTEMPTS, deps.clock.now()],
     )
   ).rows
   let written = 0
@@ -62,10 +81,13 @@ export async function writeReplies(deps: { db: Db; clock: Clock }, fhir: FhirSer
       })
       written++
     } catch (error) {
-      // Tried again on the next round; one failure never holds up the rest.
+      // Tried again later, waiting twice as long each time (from 10 seconds);
+      // one failure never holds up the rest.
       await deps.db.query(
-        "update replies set fhir_attempts = fhir_attempts + 1, fhir_error = $2 where id = $1",
-        [reply.id, error instanceof Error ? error.message.slice(0, 500) : String(error)],
+        `update replies set fhir_attempts = fhir_attempts + 1, fhir_error = $2,
+           fhir_next_try_at = $3::timestamptz + make_interval(secs => 10 * power(2, fhir_attempts))
+         where id = $1`,
+        [reply.id, error instanceof Error ? error.message.slice(0, 500) : String(error), deps.clock.now()],
       )
     }
   }

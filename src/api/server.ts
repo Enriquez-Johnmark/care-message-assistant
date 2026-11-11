@@ -84,8 +84,11 @@ export function server(app: App): FastifyInstance {
       await reply.code(401).send({ error: "log in first" })
       return undefined
     }
-    return (await app.db.query<Staff>("select id, email, name, role from staff where id = $1", [s.personId]))
-      .rows[0]
+    const staff = (
+      await app.db.query<Staff>("select id, email, name, role from staff where id = $1", [s.personId])
+    ).rows[0]
+    if (!staff) await reply.code(401).send({ error: "log in first" })
+    return staff
   }
 
   async function patientOf(request: FastifyRequest, reply: FastifyReply): Promise<Session | undefined> {

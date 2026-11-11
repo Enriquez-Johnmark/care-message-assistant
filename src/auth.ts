@@ -56,11 +56,17 @@ export async function requestLink(
     person.who === "staff"
       ? "Example Community Clinic's care team pages"
       : "Example Community Clinic's patient portal"
-  await mailer.send(
-    address,
-    "Your login link",
-    `Open this link to log in to ${where} (made up, for a demo):\n\n${baseUrl}/login/${token}\n\nIt works once, for ${LINK_MINUTES} minutes.`,
-  )
+  // Sent without waiting, and a failure only logged, so the answer is the
+  // same whether or not the address is registered.
+  mailer
+    .send(
+      address,
+      "Your login link",
+      `Open this link to log in to ${where} (made up, for a demo):\n\n${baseUrl}/login/${token}\n\nIt works once, for ${LINK_MINUTES} minutes.`,
+    )
+    .catch((error: unknown) => {
+      console.error("sending a login link failed:", error instanceof Error ? error.message : error)
+    })
 }
 
 /** Uses a login link: a session secret if the link is good, else `undefined`. */
@@ -79,6 +85,15 @@ export async function useLink(
       )
     ).rows[0]
     if (!row) return undefined
+    // Logged under the person's email, as every other step is.
+    const email = (
+      await tx.query<{ email: string }>(
+        row.who === "staff"
+          ? "select email from staff where id = $1"
+          : "select email from patients where id = $1",
+        [row.person_id],
+      )
+    ).rows[0]?.email
     const sessionSecret = secret()
     await tx.query(
       "insert into sessions (secret_hash, who, person_id, created_at, expires_at) values ($1, $2, $3, $4, $5)",
@@ -86,7 +101,7 @@ export async function useLink(
     )
     await audit(tx, {
       at: now,
-      actor: row.person_id,
+      actor: email ?? row.person_id,
       action: "login",
       subjectType: row.who,
       subjectId: row.person_id,

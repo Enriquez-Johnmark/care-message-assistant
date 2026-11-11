@@ -243,7 +243,7 @@ const PROMISES = [
   /\bpromise\w*/,
   /\bwill (?:clear up|go away|resolve|get better|be fine|be okay|be ok|heal|improve)\b/,
   // "It will pass", not "I will pass your question on".
-  /\b(?:it|this|that|these|they|the \w+|your \w+) will pass\b/,
+  /\b(?:it|this|that|these|they|the \w+|your \w+) will pass\b(?! (?:on|along|it|this|that|these|them|your|the|my|a)\b)/,
   /\bnothing to worry about\b/,
   /\byou(?:'ll| will) be (?:fine|okay|ok|alright|all right)\b/,
   /\b(?:by|before) (?:today|tomorrow|tonight|end of day|the end of the day)\b/,
