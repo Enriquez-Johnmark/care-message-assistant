@@ -70,9 +70,9 @@ Read only through an injected `Clock`; ESLint bans `Date.now()` and `new Date()`
 | M1 | Data and FHIR: the made-up patients and messages, HAPI FHIR, the strict reader, the made-up check, the evidence pack, CI | A1, A3, H2, J1 | done (2026-11-11) |
 | M2 | Red flags and checks, with the 40 bad drafts | B1, D1–D7, I1 | done (2026-11-11) |
 | M3 | Sorting and drafting: the model client, recorded answers, intake, the guidance | A2, B2, B4, C1–C5 | done (2026-11-11) |
-| M4 | Logins, review and the activity log, with the staff pages | B3, E1–E4, G1–G3, H1 | planned |
-| M5 | Sending and the portal | A4, F1–F4 | planned |
-| M6 | Measurement: Claude's recorded drafts, red-flag recall, the review report | I2, I3 | planned |
+| M4 | Logins, review and the activity log, with the staff pages | B3, E1–E4, G1–G3, H1 | done (2026-11-11) |
+| M5 | Sending and the portal | A4, F1–F4 | done (2026-11-11) |
+| M6 | Measurement: Claude's recorded drafts, red-flag recall, the review report | I2, I3 | done (2026-11-11) |
 | M7 | Showcase: README, screenshots, walkthrough video, portfolio page | none | planned |
 
 Each milestone ends with a code review and an evidence page.
