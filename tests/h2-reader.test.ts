@@ -94,3 +94,25 @@ describe("h2 the strict FHIR reader", () => {
     )
   })
 })
+
+describe("h2 the record's order", () => {
+  it("h2 a record reads the same whatever order the server sends its resources in", () => {
+    const resources = patientResources({
+      ...ana,
+      observations: [
+        { name: "Systolic blood pressure", value: 142, unit: "mmHg", date: "2026-10-01" },
+        { name: "Weight", value: 70, unit: "kg", date: "2026-11-01" },
+      ],
+      medications: [
+        { name: "lisinopril", dose: "10 mg", frequency: "once a day" },
+        { name: "atorvastatin", dose: "20 mg", frequency: "once a day" },
+      ],
+    })
+    const [patient, ...rest] = resources
+
+    const forwards = read(resources).records[0]?.facts
+    const backwards = read([patient, ...rest.reverse()]).records[0]?.facts
+
+    expect(JSON.stringify(backwards)).toBe(JSON.stringify(forwards))
+  })
+})

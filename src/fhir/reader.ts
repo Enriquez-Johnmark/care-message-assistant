@@ -279,5 +279,16 @@ export function read(resources: unknown[]): Read {
         refuse(`a ${kind} isn't read`)
     }
   }
+  // A fixed order, whatever order the server sent: the same record always
+  // gives the model the same question.
+  for (const { facts } of result.records) {
+    const by = (a: string, b: string) => a.localeCompare(b)
+    facts.conditions.sort((a, b) => by(a.name, b.name) || by(a.since, b.since))
+    facts.medications.sort((a, b) => by(a.name, b.name) || by(a.dose, b.dose))
+    facts.allergies.sort((a, b) => by(a.substance, b.substance))
+    facts.observations.sort((a, b) => by(b.date, a.date) || by(a.name, b.name) || a.value - b.value)
+    facts.appointments.sort((a, b) => by(a.start, b.start))
+  }
+  result.messages.sort((a, b) => a.sent.localeCompare(b.sent) || a.key.localeCompare(b.key))
   return result
 }
