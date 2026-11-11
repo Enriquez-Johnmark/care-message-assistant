@@ -3,3 +3,5 @@
 node_modules/
 .DS_Store
 coverage
+test-results.json
+evidence.html

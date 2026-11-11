@@ -41,4 +41,11 @@ jobs:
       - name: Wait for HAPI FHIR
         run: for _ in $(seq 1 90); do curl -sf "$FHIR_URL/metadata" >/dev/null && break; sleep 2; done
       - name: Test
-        run: pnpm test
+        run: pnpm test --reporter=default --reporter=json --outputFile.json=test-results.json
+      - name: Evidence pack
+        run: pnpm cli evidence --results test-results.json --commit "$GITHUB_SHA" --out evidence.html
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evidence-pack
+          path: evidence.html
