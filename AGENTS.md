@@ -35,8 +35,15 @@ Research claims carry a source (URL, publisher, date) and a confidence (H/M/L). 
 - **No compliance claims.** The README never says "HIPAA compliant" or "certified".
 - **Language:** TypeScript, with React pages (decided 2026-11-10).
 - **Report test results only from commands actually run.**
+- **Red flags before the model.** An urgent message never reaches a model; code finds it first.
+- **The model never sees who the patient is.** Requests carry only the record fields the spec allows; no name, date of birth, address, record number or contact details.
+- **Tests:** test first (one criterion's test, see it fail, then make it pass); every acceptance criterion has a test whose name starts with its ID, e.g. `b2 a flagged message never reaches the model`.
+- **Time:** read only through the injected `Clock` (`src/clock.ts`); ESLint bans `Date.now()` and `new Date()` elsewhere.
+- **React:** read the `vercel-react-best-practices`, `vercel-composition-patterns`, `shadcn`, `frontend-design`, `web-design-guidelines` and `ui-taste` skills before writing or reviewing the React app; third-party skills are read in full before they're added and recorded in `skills-lock.json`.
 - **Small commits** on `main`, each one change; messages imperative; no AI attribution trailers such as "Co-Authored-By" (owner's choice). Commits are signed with the owner's SSH key, so GitHub shows them as verified.
 
 ## Working here
 
-- **Cloud sessions:** `scripts/cloud-session-start.sh` runs at session start (via `.claude/settings.json`) and sets up commit signing.
+- **Before every commit:** `pnpm lint`, `pnpm typecheck` and `pnpm test` pass, and for changes under `web/`, `pnpm --dir web lint`, `typecheck`, `test` and `build` too.
+- **Cloud sessions:** `scripts/cloud-session-start.sh` runs at session start (via `.claude/settings.json`): commit signing, Postgres, Mailpit and HAPI FHIR, and the packages.
+- **Locally:** `docker compose --profile fhir up -d`; `cp .env.example .env` once; `pnpm install`; `pnpm test`.

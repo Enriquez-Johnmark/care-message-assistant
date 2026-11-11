@@ -1,0 +1,34 @@
+{
+  "name": "care-message-assistant",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Helps a clinic's care team answer patients' portal messages: red flags caught in code, Claude's drafts checked against the record, a clinician approves the exact text.",
+  "license": "UNLICENSED",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "pnpm@10.28.0",
+  "scripts": {
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "cli": "tsx src/cli.ts"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "^22.20.5",
+    "@types/pg": "^8.23.1",
+    "eslint": "10.14.0",
+    "prettier": "3.9.10",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.72.1",
+    "vitest": "3.2.7"
+  },
+  "dependencies": {
+    "pg": "^8.23.1",
+    "zod": "4.6.7"
+  }
+}

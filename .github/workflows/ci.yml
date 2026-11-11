@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: care_messages
+          POSTGRES_PASSWORD: care_messages
+          POSTGRES_DB: care_messages
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U care_messages" --health-interval 2s --health-retries 30
+      # The made-up clinic's FHIR server.
+      hapi:
+        image: hapiproject/hapi:v8.4.0-1
+        ports:
+          - 8090:8080
+    env:
+      DATABASE_URL: postgres://care_messages:care_messages@localhost:5432/care_messages
+      FHIR_URL: http://127.0.0.1:8090/fhir
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Lint and format
+        run: pnpm lint
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: Wait for HAPI FHIR
+        run: for _ in $(seq 1 90); do curl -sf "$FHIR_URL/metadata" >/dev/null && break; sleep 2; done
+      - name: Test
+        run: pnpm test

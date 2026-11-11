@@ -1,0 +1,25 @@
+# Local development only: Postgres for the app and its tests, Mailpit to catch
+# every login email, and HAPI FHIR holding the made-up clinic's records.
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: care_messages
+      POSTGRES_PASSWORD: care_messages
+      POSTGRES_DB: care_messages
+    ports:
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U care_messages"]
+      interval: 2s
+      retries: 30
+  mailpit:
+    image: axllent/mailpit:v1.27.11
+    ports:
+      - "127.0.0.1:8025:8025"
+  # `docker compose --profile fhir up -d`, then `pnpm cli load-made-up`.
+  hapi:
+    image: hapiproject/hapi:v8.4.0-1
+    profiles: [fhir]
+    ports:
+      - "127.0.0.1:8090:8080"

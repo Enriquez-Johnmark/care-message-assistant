@@ -1,0 +1,7 @@
+pnpm-lock.yaml
+# The React app has its own checks (pnpm --dir web lint).
+web
+# Long Markdown tables are kept as written.
+docs
+evalset/recorded
+*.md
