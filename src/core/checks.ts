@@ -198,10 +198,16 @@ const alternation = (words: readonly string[]) =>
 const CONDITION = alternation(CONDITIONS)
 const MEDICINE = alternation(MEDICINES)
 
+/** A condition word naming a thing, not a condition: "a flu shot", "an allergy test". */
+const NOT_A_THING =
+  "(?! (?:shot|shots|vaccine|vaccines|test|tests|testing|check|checkup|screening|appointment|visit|clinic|pack|medicine|medicines|season))"
+
 const DIAGNOSIS = [
-  new RegExp(`\\b(?:sounds|looks|seems) like (?:you have|youve got|you've got|its|it's|it is|a|an|the)\\b`),
   new RegExp(
-    `\\byou (?:have|'ve got|have got|likely have|probably have|may have|might have|could have)(?: an?)? (?:${CONDITION})\\b`,
+    `\\b(?:sounds|looks|seems) like(?: you have| you've got| it's| it is)?(?: a| an| the)? (?:${CONDITION})\\b${NOT_A_THING}`,
+  ),
+  new RegExp(
+    `\\byou (?:have|'ve got|have got|likely have|probably have|may have|might have|could have)(?: an?)? (?:${CONDITION})\\b${NOT_A_THING}`,
   ),
   new RegExp(`\\b(?:most likely|probably|likely|definitely)(?: the| a| an)? (?:${CONDITION})\\b`),
   new RegExp(`\\bthis is(?: probably| likely| definitely)?(?: a| an| the)? (?:${CONDITION})\\b`),
@@ -212,15 +218,20 @@ const DIAGNOSIS = [
 
 const CHANGE_VERBS =
   "stop|stopping|quit|discontinue|increase|increasing|decrease|decreasing|reduce|raise|lower|double|halve|skip|skipping|cut back on|cut down on|cut back|cut down|hold off on|hold|pause|switch|start|starting|begin"
-const CHANGE_TARGETS = `${MEDICINE}|dose|doses|dosage|medicine|medicines|medication|medications|pill|pills|tablet|tablets|it|taking|insulin`
+const CHANGE_TARGETS = `${MEDICINE}|dose|doses|dosage|medicine|medicines|medication|medications|pill|pills|tablet|tablets|insulin`
 const MEDICINE_CHANGE = [
+  // A verb and a medicine word a few words apart; "it" or "taking" only right after the verb.
   new RegExp(`\\b(?:${CHANGE_VERBS})(?: \\w+){0,4} (?:${CHANGE_TARGETS})\\b`),
-  /\btake (?:two|three|2|3|an extra|extra|half|double|another)\b/,
+  new RegExp(`\\b(?:${CHANGE_VERBS})(?: your| the)? (?:it|taking)\\b`),
+  new RegExp(
+    `\\btake (?:two|three|2|3|an extra|extra|half|double|another)(?: \\w+){0,2} (?:dose|doses|pill|pills|tablet|tablets|of (?:your|my|the)|${MEDICINE})\\b`,
+  ),
 ]
 const NOT_A_CHANGE = /\b(?:don't|dont|do not|never|please don't|please do not)\s*$/
 
 const PROMISES = [
   /\b(?:we|i|someone|a nurse|the nurse|the doctor|your doctor|dr \w+|our team|the clinic|the office)(?: will|'ll| shall) (?:call|phone|contact|get back|reach out|text|email|follow up|see you|send)\b/,
+  /\b(?:we|i|someone|a nurse|the nurse|the doctor|your doctor|our team|the clinic|the office)(?: will|'ll) (?:be (?:calling|contacting|in touch|reaching out|getting back)|give you a (?:call|ring)|get in touch)\b/,
   /\bwithin \d+ (?:hours?|days?|minutes?|weeks?)\b/,
   /\bguarantee\w*/,
   /\bpromise\w*/,
@@ -229,6 +240,9 @@ const PROMISES = [
   /\byou(?:'ll| will) be (?:fine|okay|ok|alright|all right)\b/,
   /\b(?:by|before) (?:today|tomorrow|tonight|end of day|the end of the day)\b/,
 ]
+
+/** A clock time, read whole even with "am" or "pm" stuck to it ("9:30am"). */
+const TIME = /(?<!\d)\d{1,2}:\d{2}(?!\d)/g
 
 const lower = (text: string) => text.toLowerCase().replace(/[’‘]/g, "'")
 
@@ -294,10 +308,14 @@ function allowed(context: Context): { numbers: Set<string>; dateWords: Set<strin
       dateWords.add(WEEKDAYS[(local.getUTCDay() + 6) % 7] ?? "")
     }
   }
-  for (const t of message.match(/\b\d{1,2}:\d{2}\b/g) ?? []) times.add(t.replace(/^0/, ""))
+  for (const t of message.match(TIME) ?? []) times.add(t.replace(/^0/, ""))
   addNumbers(message)
   const said = lower(message)
-  for (const w of [...MONTHS, ...WEEKDAYS, ...RELATIVE_DAYS]) if (said.includes(w)) dateWords.add(w)
+  for (const w of [...MONTHS, ...WEEKDAYS, ...RELATIVE_DAYS]) {
+    // "may" in a message is an ordinary word unless a day number follows.
+    const pattern = w === "may" ? /\bmay \d/ : new RegExp(`\\b${w}\\b`)
+    if (pattern.test(said)) dateWords.add(w)
+  }
   for (const m of facts.medications) addNumbers(`${m.dose} ${m.frequency}`)
   for (const o of facts.observations) {
     addNumbers(`${o.value} ${o.low ?? ""} ${o.high ?? ""}`)
@@ -321,6 +339,20 @@ function fillInProblems(draft: string): Problem[] {
   return problems
 }
 
+/** The first change to a medicine in `text`. A negated one ("don't stop
+ *  your…") is passed over, and the search starts again just after its verb, so
+ *  a real change in the same sentence is still found. */
+function medicineChange(text: string): string | undefined {
+  for (const pattern of MEDICINE_CHANGE) {
+    const search = new RegExp(pattern.source, "g")
+    for (let m = search.exec(text); m !== null; m = search.exec(text)) {
+      if (!NOT_A_CHANGE.test(text.slice(0, m.index))) return m[0]
+      search.lastIndex = m.index + 1
+    }
+  }
+  return undefined
+}
+
 /** Every problem in `draft`, read against the patient's message and record. */
 export function check(draft: string, context: Context): Checked {
   const text = lower(draft)
@@ -330,15 +362,8 @@ export function check(draft: string, context: Context): Checked {
   const diagnosis = first(DIAGNOSIS)
   if (diagnosis) problems.push({ check: "diagnosis", found: diagnosis[0] })
 
-  for (const pattern of MEDICINE_CHANGE) {
-    const match = new RegExp(pattern.source, "g")
-    for (const m of text.matchAll(match)) {
-      if (NOT_A_CHANGE.test(text.slice(0, m.index))) continue
-      problems.push({ check: "medicine-change", found: m[0] })
-      break
-    }
-    if (problems.some((p) => p.check === "medicine-change")) break
-  }
+  const change = medicineChange(text)
+  if (change) problems.push({ check: "medicine-change", found: change })
 
   const own = new Set(
     context.facts.medications.flatMap((m) => lower(m.name).split(/[^a-z]+/)).filter((w) => w.length > 2),
@@ -351,13 +376,13 @@ export function check(draft: string, context: Context): Checked {
 
   const { numbers, dateWords, times } = allowed(context)
   let withoutFillIns = text.replace(/\{[^{}]*\}/g, "")
-  for (const t of withoutFillIns.match(/\b\d{1,2}:\d{2}\b/g) ?? []) {
+  for (const t of withoutFillIns.match(TIME) ?? []) {
     if (!times.has(t.replace(/^0/, ""))) {
       problems.push({ check: "number-or-date", found: t })
       break
     }
   }
-  withoutFillIns = withoutFillIns.replace(/\b\d{1,2}:\d{2}\b/g, " ")
+  withoutFillIns = withoutFillIns.replace(TIME, " ")
   for (const n of withoutFillIns.match(/\d+(?:\.\d+)?/g) ?? []) {
     if (!numbers.has(n)) {
       problems.push({ check: "number-or-date", found: n })

@@ -114,3 +114,36 @@ describe("d4 times", () => {
     expect(failed(`${GOOD} Come at 10:15.`)).toContain("number-or-date")
   })
 })
+
+describe("d checks, after the code review", () => {
+  it("d4 a time with am or pm attached is read whole", () => {
+    expect(failed(`${GOOD} Your visit is at 9:30am.`)).toEqual([])
+    expect(failed(`${GOOD} Your visit is at 11:12am.`)).toContain("number-or-date")
+  })
+
+  it("d2 a real change after a negated one is still caught", () => {
+    expect(failed(`${GOOD} Don't stop it start metformin today`)).toContain("medicine-change")
+  })
+
+  it("d1 ordinary sentences are not diagnoses", () => {
+    expect(failed(`${GOOD} That sounds like a good plan.`)).toEqual([])
+    expect(failed(`${GOOD} It looks like the clinic can help.`)).toEqual([])
+    expect(failed(`${GOOD} You have a flu shot booked at your visit.`)).toEqual([])
+  })
+
+  it("d2 ordinary sentences are not medicine changes", () => {
+    expect(failed(`${GOOD} Please start by telling us how it feels.`)).toEqual([])
+    expect(failed(`${GOOD} Take another look at the leaflet.`)).toEqual([])
+  })
+
+  it("d5 callback promises in other words are caught", () => {
+    expect(failed(`${GOOD} We will be calling you.`)).toContain("promise")
+    expect(failed(`${GOOD} We'll give you a call.`)).toContain("promise")
+  })
+
+  it("d4 a date word is allowed only if the message used that word, not inside another word", () => {
+    const said = "I may be late, this weekend is busy."
+    const draft = `${GOOD} We can talk this week.`
+    expect(check(draft, { facts, message: said }).problems.map((p) => p.check)).toContain("number-or-date")
+  })
+})
