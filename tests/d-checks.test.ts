@@ -147,3 +147,25 @@ describe("d checks, after the code review", () => {
     expect(check(draft, { facts, message: said }).problems.map((p) => p.check)).toContain("number-or-date")
   })
 })
+
+describe("d checks, after Claude's recorded drafts", () => {
+  const kidney: RecordFacts = {
+    ...facts,
+    observations: [{ name: "eGFR", value: 52, unit: "mL/min/1.73m2", date: "2026-10-01", low: 60 }],
+  }
+
+  it("d4 a number that is part of a result's own unit is in the record", () => {
+    const draft = "Hi {first_name}, your eGFR was 52 mL/min/1.73m2, below the lab's low end of 60."
+    expect(check(draft, { facts: kidney, message: "" }).problems).toEqual([])
+  })
+
+  it("d5 passing a question on is not a promise that something will pass", () => {
+    expect(failed(`${GOOD} I will pass your question on to your clinician.`)).toEqual([])
+    expect(failed(`${GOOD} The rash will pass in a day or two.`)).toContain("promise")
+  })
+
+  it("d2 saying the clinic can't say whether to start a medicine is not telling them to", () => {
+    expect(failed(`${GOOD} I can't say whether you should start a medicine.`)).toEqual([])
+    expect(failed(`${GOOD} You should start a medicine for this.`)).toContain("medicine-change")
+  })
+})

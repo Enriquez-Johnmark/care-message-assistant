@@ -230,7 +230,10 @@ const MEDICINE_CHANGE = [
     `\\btake (?:two|three|2|3|an extra|extra|half|double|another)(?: \\w+){0,2} (?:dose|doses|pill|pills|tablet|tablets|of (?:your|my|the)|${MEDICINE})\\b`,
   ),
 ]
-const NOT_A_CHANGE = /\b(?:don't|dont|do not|never|please don't|please do not)\s*$/
+/** Words before a change verb that make it not an instruction: "don't stop…",
+ *  "I can't say whether you should start…". */
+const NOT_A_CHANGE =
+  /\b(?:don't|dont|do not|never|please don't|please do not|whether you should|whether to|if you should)\s*$/
 
 const PROMISES = [
   /\b(?:we|i|someone|a nurse|the nurse|the doctor|your doctor|dr \w+|our team|the clinic|the office)(?: will|'ll| shall) (?:call|phone|contact|get back|reach out|text|email|follow up|see you|send)\b/,
@@ -238,7 +241,9 @@ const PROMISES = [
   /\bwithin \d+ (?:hours?|days?|minutes?|weeks?)\b/,
   /\bguarantee\w*/,
   /\bpromise\w*/,
-  /\bwill (?:clear up|go away|resolve|get better|be fine|be okay|be ok|heal|improve|pass)\b/,
+  /\bwill (?:clear up|go away|resolve|get better|be fine|be okay|be ok|heal|improve)\b/,
+  // "It will pass", not "I will pass your question on".
+  /\b(?:it|this|that|these|they|the \w+|your \w+) will pass\b/,
   /\bnothing to worry about\b/,
   /\byou(?:'ll| will) be (?:fine|okay|ok|alright|all right)\b/,
   /\b(?:by|before) (?:today|tomorrow|tonight|end of day|the end of the day)\b/,
@@ -322,7 +327,8 @@ function allowed(context: Context): { numbers: Set<string>; dateWords: Set<strin
   }
   for (const m of facts.medications) addNumbers(`${m.dose} ${m.frequency}`)
   for (const o of facts.observations) {
-    addNumbers(`${o.value} ${o.low ?? ""} ${o.high ?? ""}`)
+    // The unit's own numbers too, as in "mL/min/1.73m2".
+    addNumbers(`${String(o.value)} ${String(o.low ?? "")} ${String(o.high ?? "")} ${o.unit}`)
     addDate(o.date)
   }
   for (const a of facts.appointments) addDate(a.start)
