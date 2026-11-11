@@ -5,3 +5,4 @@ node_modules/
 coverage
 test-results.json
 evidence.html
+showcase-server.log
